@@ -41,21 +41,35 @@
 			console.log('you dragged me over!');
 		});
 
-		zone.addEventListener("drop", function(e) {
-			e.preventDefault();
-			console.log('ouch! you dropped me!');
+				//drop function! run this in the debugger to figure out where
+				//the parent node really is... 
+				zone.addEventListener("drop", function(e) {
+					e.preventDefault();
+					console.log('ouch! you dropped me!');
+				
+				//e.target seems to be the parent node!
+				
+				// define the parent node with a better variable name, run it to
+				// see what children are inside of the element.
+				let dropEnd = e.target;
+					//while the parent container does not equal zero and contains the "drop-zone" class,
+					//a child can be placed inside of the zone. better a while than an if statement, as
+					//there ios nothing else the loop should be doing.
+					while (dropEnd !== 0 && !dropEnd.classList.contains("drop-zone")) {
+					dropEnd = dropEnd.parentNode;
+				}
 
+				//prevent children stacking inside of containers using an if statement
+				//if the dropEnd and dropEnd children are greater than one, no more
+				//children can be placed onto that section of the puzzle board.
+				if (dropEnd && dropEnd.childNodes.length > 0) {
+					return false;
+					e.preventDefault();
+				}
 			
 			let piece = e.dataTransfer.getData("text/plain");
 			e.target.appendChild(document.querySelector(`#${piece}`));
 
-				//do not allow the puzzles to overlap
-			if ( dropZones.children > "0") {
-				return;
-				console.log('a piece is already here.');
-			} else {
-				
-			}
 
 		});
 	});
@@ -67,10 +81,8 @@
 		createPuzzlePieces(this.dataset.puzzleref);	
 	}
 
-	function resetPuzzleBoard() {
-		dropZones.innerHTML = "";
-	}
 
+	//event handling!!
 	puzzleSelectors.forEach(puzzle => puzzle.addEventListener("click", resetPuzzlePieces));
 	dropZones.forEach(img => img.addEventListener("click", resetPuzzleBoard));
 
