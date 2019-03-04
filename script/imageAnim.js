@@ -45,8 +45,18 @@
 			e.preventDefault();
 			console.log('ouch! you dropped me!');
 
+			
 			let piece = e.dataTransfer.getData("text/plain");
 			e.target.appendChild(document.querySelector(`#${piece}`));
+
+				//do not allow the puzzles to overlap
+			if ( dropZones.children > "0") {
+				return;
+				console.log('a piece is already here.');
+			} else {
+				
+			}
+
 		});
 	});
 
@@ -54,10 +64,16 @@
 	function resetPuzzlePieces() {
 		// empty the container!!! dont fill it up too much :(
 		piecesBoard.innerHTML = "";
-		createPuzzlePieces(this.dataset.puzzleref);		
+		createPuzzlePieces(this.dataset.puzzleref);	
+	}
+
+	function resetPuzzleBoard() {
+		dropZones.innerHTML = "";
 	}
 
 	puzzleSelectors.forEach(puzzle => puzzle.addEventListener("click", resetPuzzlePieces));
+	dropZones.forEach(img => img.addEventListener("click", resetPuzzleBoard));
+
 
 	createPuzzlePieces(0);
 	
