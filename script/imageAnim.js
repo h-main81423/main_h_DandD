@@ -70,7 +70,6 @@
 			let piece = e.dataTransfer.getData("text/plain");
 			e.target.appendChild(document.querySelector(`#${piece}`));
 
-
 		});
 	});
 
@@ -81,10 +80,11 @@
 		//create the puzzle pieces from the image selected!!
 		createPuzzlePieces(this.dataset.puzzleref);
 
-		// identifying whats in the parent element
+		// identifying what is inside the parent element, which is four images creating the
+    // puzzle pieces
 		var images = document.getElementsByClassName("puzzle-image");
     			while(images.length > 4){
-    	// Slecting the child Elements and removing them
+    	// taking the children and removing them from the container, thus resetting the pieces.
         		images[4].parentNode.removeChild(images[4]);
     }
     
