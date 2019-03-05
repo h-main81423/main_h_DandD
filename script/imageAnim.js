@@ -75,18 +75,23 @@
 
 
 	function resetPuzzlePieces() {
-		// empty the container!!! dont fill it up too much :(
+		// empty the thumbnail container!! You don't need it overlapping!!
 		piecesBoard.innerHTML = "";
-		createPuzzlePieces(this.dataset.puzzleref);	
-	}
+		//create the puzzle pieces from the image selected!!
+		createPuzzlePieces(this.dataset.puzzleref);
 
-	function resetPuzzleBoard() {
-		dropZones.innerHTML = "";
-	}
+		// identifying what is inside the parent element, which is four images creating the
+    // puzzle pieces
+		var images = document.getElementsByClassName("puzzle-image");
+    			while(images.length > 4){
+    	// taking the children and removing them from the container, thus resetting the pieces.
+        		images[4].parentNode.removeChild(images[4]);
+    }
+    
+}
 
+	// event handling down here
 	puzzleSelectors.forEach(puzzle => puzzle.addEventListener("click", resetPuzzlePieces));
-	dropZones.forEach(img => img.addEventListener("click", resetPuzzleBoard));
-
 
 	createPuzzlePieces(0);
 	
